@@ -1,0 +1,39 @@
+import { constructEvents } from 'obs-disp'
+
+export const gameEvents = constructEvents([
+  'GAME_START',
+  'GAME_EDIT',
+  'GAME_EDIT_EXIT',
+  'GAME_RESTART',
+  'GAME_REQUEST_RESTART',
+  'CRATE_EJECT',
+  //
+  'SCREEN_GO_TO_BEFORE_GAME',
+  'SCREEN_GO_TO_GAME',
+  'LEVEL_SET_LEVEL',
+  'GAME_END',
+  'GAME_FAILED',
+  'GAME_WON',
+  'GAME_PAUSE',
+  'GAME_RESUME',
+  //
+  'GAME_ENGINE_SET_SCOPE',
+  'GAME_FLOW_GO_TO_MENU',
+
+  'GAME_ADVANCE',
+  'GAME_DID_ADVANCE',
+  'GAME_PART_START',
+  'GAME_PART_END',
+  'GAME_LEVEL_CLEAR',
+  'GAME_LEVEL_STARTED',
+  'GAME_LEVEL_ENDED',
+  'GAME_LEVEL_RESTART',
+
+  'GAME_LOST',
+  'GAME_LIFE_LOST',
+
+  'GAME_PLR_RESTARTED',
+  'GAME_PLR_OFF_BOTTOM',
+  'GAME_PLR_RIP',
+  'GAME_PLR_LOST_LIVE',
+])

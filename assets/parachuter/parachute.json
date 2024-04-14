@@ -1,0 +1,62 @@
+{
+	"textures": [
+		{
+			"image": "parachute.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 180,
+				"h": 106
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "parachute1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 178,
+						"h": 164
+					},
+					"spriteSourceSize": {
+						"x": 45,
+						"y": 31,
+						"w": 88,
+						"h": 104
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 88,
+						"h": 104
+					}
+				},
+				{
+					"filename": "parachute2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 178,
+						"h": 164
+					},
+					"spriteSourceSize": {
+						"x": 45,
+						"y": 31,
+						"w": 88,
+						"h": 104
+					},
+					"frame": {
+						"x": 91,
+						"y": 1,
+						"w": 88,
+						"h": 104
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:1d66141d205e785e44edffd01b58939f:5872cbf881f3e5e6037039d23c971d2a:befe6512830e79d521be66bd91629beb$"
+	}
+}

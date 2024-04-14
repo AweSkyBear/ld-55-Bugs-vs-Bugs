@@ -1,0 +1,83 @@
+{
+	"textures": [
+		{
+			"image": "wind-attacking.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 53,
+				"h": 41
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "wind-attacking-1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 63,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 6,
+						"y": 5,
+						"w": 51,
+						"h": 10
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 51,
+						"h": 10
+					}
+				},
+				{
+					"filename": "wind-attacking-2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 63,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 5,
+						"w": 50,
+						"h": 12
+					},
+					"frame": {
+						"x": 1,
+						"y": 13,
+						"w": 50,
+						"h": 12
+					}
+				},
+				{
+					"filename": "wind-attacking-3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 63,
+						"h": 28
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 5,
+						"w": 49,
+						"h": 13
+					},
+					"frame": {
+						"x": 1,
+						"y": 27,
+						"w": 49,
+						"h": 13
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:96b447f14cc9c9b43e2eb340567f1849:e2b5c6059675e6295193c569aee1fe19:f2034630c99f2768e2b76b0609cb97b9$"
+	}
+}

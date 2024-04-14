@@ -1,0 +1,104 @@
+{
+	"textures": [
+		{
+			"image": "parashooter.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 208,
+				"h": 84
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "parachuter2.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 98,
+						"h": 138
+					},
+					"spriteSourceSize": {
+						"x": 19,
+						"y": 21,
+						"w": 54,
+						"h": 84
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 54,
+						"h": 84
+					}
+				},
+				{
+					"filename": "parachuter4.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 98,
+						"h": 138
+					},
+					"spriteSourceSize": {
+						"x": 17,
+						"y": 21,
+						"w": 54,
+						"h": 84
+					},
+					"frame": {
+						"x": 54,
+						"y": 0,
+						"w": 54,
+						"h": 84
+					}
+				},
+				{
+					"filename": "parachuter3.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 98,
+						"h": 138
+					},
+					"spriteSourceSize": {
+						"x": 19,
+						"y": 21,
+						"w": 52,
+						"h": 84
+					},
+					"frame": {
+						"x": 108,
+						"y": 0,
+						"w": 52,
+						"h": 84
+					}
+				},
+				{
+					"filename": "parachuter1.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 98,
+						"h": 138
+					},
+					"spriteSourceSize": {
+						"x": 21,
+						"y": 21,
+						"w": 48,
+						"h": 84
+					},
+					"frame": {
+						"x": 160,
+						"y": 0,
+						"w": 48,
+						"h": 84
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:0a0794d34ffdd5ae81ecb8d1638cbee2:ad00a3df1d62e08d5c81702009871075:ad81fec352d22f4c211529ee619d5f98$"
+	}
+}

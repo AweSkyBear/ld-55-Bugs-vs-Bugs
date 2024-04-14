@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    // warnings
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "strictNullChecks": false,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    // "target": "ES2020",
+    // "module": "esnext",
+    // note: this is to make it run in BROWSER::: es5, es2015
+    "target": "es5",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  },
+  "include": ["src/*"]
+}
