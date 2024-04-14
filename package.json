@@ -57,7 +57,7 @@
     "css-loader": "^6.9.0",
     "download-cli": "^1.1.1",
     "electron": "^19.0.10",
-    "electron-builder": "^22.10.5",
+    "electron-builder": "^24.13.3",
     "electron-reload": "^1.5.0",
     "file-loader": "^6.2.0",
     "function-arguments": "^1.0.9",
