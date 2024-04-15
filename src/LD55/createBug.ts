@@ -195,6 +195,6 @@ const defaultFraction = (props: Parameters<typeof createBug>[0]) =>
 const applyEffect = (props: Parameters<typeof createBug>[0], bug: MatterImage) => {
   return basedOn({
     enemy: () => bug.setTintFill(0xff0000), // TOO HEAVY : bug.postFX.addGlow(0xff0000, 0.2, 1, false, 0.1, 20),
-    player: () => bug.setTintFill(0x00ff00),
+    player: () => bug.setTintFill(0x008200),
   })(defaultFraction(props)) as any
 }

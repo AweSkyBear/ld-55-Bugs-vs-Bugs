@@ -82,7 +82,7 @@ export const onDeviceReady = async () => {
     physics: {
       default: 'matter',
       matter: {
-        debug: true,
+        debug: false,
         // debug: {
         //   showBounds: true,
         //   showCollisions: true,
@@ -93,7 +93,6 @@ export const onDeviceReady = async () => {
         //   // positionColor
         // },
         gravity: { y: 0, x: 0 }, // scale: 0.0001 },
-        // HIGHER-MOITOR-REFRESH-RATE-ISSUES:SOLVED: have autoUpdate: false, fps: 60 and .step:
         autoUpdate: true,
 
         /// HIGHER-MOITOR-REFRESH-RATE-ISSUES:SOLVED - keep the 3 variables unset (keep default: 2) - higher
