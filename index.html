@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LDJAM 53</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press Start 2P&family=VT323&display=swap"
+      rel="stylesheet"
+/>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+    <script src="vendors.js"></script>
+  </head>
+  <body>
+    <div id="game" style='position: relative; display: flex; flex-wrap: nowrap; justify-content: space-evenly;'>
+      <canvas></canvas>
+      <div id="ui" class="unselectable"></div>
+    </div>
+  </body>
+  <style>
+    body {
+      overflow: hidden;
+      margin: 0;
+    }
+    canvas {
+      border: 4px solid #eee;
+      border-radius: 5px;
+    }
+  </style>
+  <script src="main.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+</html>
