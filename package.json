@@ -35,7 +35,7 @@
     "~/*": "./src/$1"
   },
   "devDependencies": {
-    "@types/dat.gui": "^0.7.12",
+    "@types/dat.gui": "^0.7.13",
     "@types/object-path": "^0.11.4",
     "@types/ramda": "^0.28.15",
     "acorn": "^8.11.3",
