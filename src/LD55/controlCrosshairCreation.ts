@@ -27,40 +27,52 @@ const getPointerPos = (scene: Scene) => ({
   y: scene.input.activePointer.worldY,
 })
 
-export const controlCrosshairCreation = obsDispCreator(() => {
-  const state = {
-    maxCrosshairs: 3,
-    crosshairCount: 0,
-  }
+export const controlCrosshairCreation = obsDispCreator(
+  () => {
+    const state = {
+      maxCrosshairs: 3,
+      crosshairCount: 0,
+      canSummon: true,
+    }
 
-  return {
-    [obsDispEvents.OBS_CREATE]: () => {
-      //
-    },
-    [inputEvents.GLOBAL_POINTER_DOWN]: async (ev) => {
-      if (Global.ignoreGlobalPointerDown || Global.isUnsummoning) return
+    return {
+      [obsDispEvents.OBS_CREATE]: () => {
+        //
+      },
+      [inputEvents.GLOBAL_POINTER_DOWN]: async (ev) => {
+        if (Global.ignoreGlobalPointerDown || Global.isUnsummoning) return
 
-      const isPrimaryBtnClicked = ev.payload.pointer.button === 0
+        const isPrimaryBtnClicked = ev.payload.pointer.button === 0
 
-      if (!isPrimaryBtnClicked || state.crosshairCount >= state.maxCrosshairs) {
-        return
-      }
+        if (!isPrimaryBtnClicked || state.crosshairCount >= state.maxCrosshairs) {
+          return
+        }
 
-      const crosshairInd = state.crosshairCount
+        const crosshairInd = state.crosshairCount
 
-      createCrosshair({
-        pos: getPointerPos(ObservableScenes.game),
-        tint: 0x00ff + crosshairInd * 30001 * 300 * Math.random(),
-        ind: crosshairInd,
-      })
-      state.crosshairCount++
+        createCrosshair({
+          pos: getPointerPos(ObservableScenes.game),
+          tint: 0x00ff + crosshairInd * 30001 * 300 * Math.random(),
+          ind: crosshairInd,
+          removeSoonAfter: !state.canSummon,
+        })
+        state.crosshairCount++
 
-      if (state.crosshairCount === state.maxCrosshairs) {
-        dispatchDeferredEvent(events.LD_CROSSHAIR_COUNT_REACHED)
-      }
-    },
-    [events.LD_PLAYER_SUMMON_ENDED]: () => {
-      state.crosshairCount = 0
-    },
-  }
-})
+        if (state.crosshairCount === state.maxCrosshairs) {
+          dispatchDeferredEvent(events.LD_CROSSHAIR_COUNT_REACHED)
+        }
+      },
+      [events.LD_CROSSHAIR_REMOVED]: (ev) => {
+        state.crosshairCount--
+      },
+      [events.LD_SUMMON_SET_COUNT]: (ev) => {
+        const { count } = ev.payload
+        state.canSummon = count > 0
+      },
+      [events.LD_PLAYER_SUMMON_ENDED]: () => {
+        state.crosshairCount = 0
+      },
+    }
+  },
+  { name: 'control-crosshair-creation' }
+)

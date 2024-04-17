@@ -1,6 +1,6 @@
 /// <reference types= "../node_modules/phaser/types" />
-import Phaser from 'phaser'
-Phaser /* needed */
+// import Phaser from 'phaser'
+// Phaser /* needed */
 
 declare const window: Window & {
   cordova: { file: any; platformId: string }

@@ -26,7 +26,7 @@ export const PULSATE_DURATION = 2500
 export const controlPlayerSummoning = obsDispCreator(
   () => {
     const state = {
-      canShoot: false,
+      readyToShoot: false,
       spacebarImg: null as Image,
       tweenPulsate: null as Tween,
       totalSummonCount: Global.summonCountDefault,
@@ -37,7 +37,9 @@ export const controlPlayerSummoning = obsDispCreator(
         //
       },
       [events.LD_CROSSHAIR_COUNT_REACHED]: () => {
-        state.canShoot = true
+        if (state.totalSummonCount <= 0) return
+
+        state.readyToShoot = true
 
         state.spacebarImg = createImage({
           scene: ObservableScenes.foreground,
@@ -63,6 +65,10 @@ export const controlPlayerSummoning = obsDispCreator(
           },
         })
       },
+      // [events.LD_EARTH_INCREASE_HP]: (ev) => {
+      //   const { hpIncrement } = ev.payload
+      //   state.leftHp += hpIncrement
+      // },
       [events.LD_SUMMON_SET_COUNT]: (ev) => {
         const { count } = ev.payload
         state.totalSummonCount = count
@@ -98,10 +104,15 @@ export const controlPlayerSummoning = obsDispCreator(
       [ODHTMLEvents.HTML_EV_ANY]: ({ payload }) => {
         const { type, wrappedEventArgs } = payload
         // PRESSING SPACE
-        if (state.canShoot && type === 'keydown' && wrappedEventArgs[0].key === ' ') {
+        if (
+          state.readyToShoot &&
+          type === 'keydown' &&
+          wrappedEventArgs[0].key === ' ' &&
+          state.totalSummonCount > 0
+        ) {
           dispatchEvent(events.LD_PLAYER_SUMMON)
 
-          state.canShoot = false
+          state.readyToShoot = false
           state.spacebarImg.alpha = 0
         }
       },

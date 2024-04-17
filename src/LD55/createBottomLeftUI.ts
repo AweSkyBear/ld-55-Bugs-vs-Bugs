@@ -102,10 +102,9 @@ export const createBottomLeftUI = obsDispCreator(
       [events.LD_PLAYER_SUMMON_ENDED]: () => {
         // Take the HP in terms of the last summon count
         state.leftHp -= state.selectedHp
-        dispatchEvent(events.LD_EARTH_DECREASE_HP, { payload: { hpDecrement: state.selectedHp } })
+        state.selectedHp = Math.min(state.selectedHp, state.leftHp)
 
-        // NOT override
-        // state.selectedHp = Math.min(Global.summonCountDefault, state.leftHp)
+        dispatchEvent(events.LD_EARTH_DECREASE_HP, { payload: { hpDecrement: state.selectedHp } })
 
         // sync
         dispatchEvent(events.LD_SUMMON_SET_COUNT, { payload: { count: state.selectedHp } })

@@ -100,7 +100,7 @@ export const createEarth = obsDispCreator(() => {
     }),
     [events.LD_EARTH_DECREASE_HP]: (ev) => {
       const { hpDecrement } = ev.payload
-      state.hp -= hpDecrement
+      state.hp -= Math.max(0, hpDecrement)
     },
     [events.LD_EARTH_INCREASE_HP]: (ev) => {
       const { hpIncrement } = ev.payload

@@ -30,6 +30,8 @@ export const events = constructEvents([
   'LD_POINTS_CHANGED',
   /** Unsummoning action */
   'LD_DO_UNSUMMON',
+  /** Crosshair cleared */
+  'LD_CROSSHAIR_REMOVED',
   /** Game lost */
   'LD_GAME_LOST',
 ])

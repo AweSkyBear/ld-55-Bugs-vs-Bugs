@@ -3,6 +3,7 @@ import {
   constructEvents,
   createThrottledDispatch,
   dispatchEvent,
+  getObserversByName,
   IEvent,
   IObserver,
   ObsDispCreate,
@@ -33,8 +34,11 @@ export const createCrosshair = obsDispCreator<{
   ind: number
   tint?: number
   initialScale?: number
+  removeSoonAfter?: boolean
 }>(
-  ({ pos, tint, ind, initialScale: _initialScale } = { initialScale: 1 } as any) => {
+  (
+    { pos, tint, ind, initialScale: _initialScale, removeSoonAfter } = { initialScale: 1 } as any
+  ) => {
     const scene = ObservableScenes.game
     const initialScale = _initialScale || 1
 
@@ -75,7 +79,7 @@ export const createCrosshair = obsDispCreator<{
 
         state.crosshair = ObservableScenes.game.add
           .image(pos.x, pos.y, TEXTURES_MAP.CROSSHAIR)
-          .setTint(tint || 0x00ff)
+          .setTint(removeSoonAfter ? 0xff0000 : tint || 0x00ff)
           .setAlpha(0.7)
           .setAngle(Math.random() * 359)
 
@@ -87,25 +91,42 @@ export const createCrosshair = obsDispCreator<{
         })
 
         // initial scaling tween
-        scene.add.tween({
-          targets: [state.crosshair],
-          scale: { from: 1.1 * initialScale, to: 0.9 * initialScale },
-          ease: Easing.Cubic,
-          duration: 1500,
-          repeat: 0,
-          yoyo: true,
-          onComplete: () => {
-            state.crosshair &&
-              scene.add.tween({
-                targets: [state.crosshair],
-                alpha: { from: 1.1, to: 0.5 },
-                ease: Easing.Cubic,
-                duration: 1500,
-                repeat: -1,
-                yoyo: true,
+        if (!removeSoonAfter) {
+          scene.add.tween({
+            targets: [state.crosshair],
+            scale: { from: 1.1 * initialScale, to: 0.9 * initialScale },
+            ease: Easing.Cubic,
+            duration: 1500,
+            repeat: 0,
+            yoyo: true,
+            onComplete: () => {
+              state.crosshair &&
+                scene.add.tween({
+                  targets: [state.crosshair],
+                  alpha: { from: 1.1, to: 0.5 },
+                  ease: Easing.Cubic,
+                  duration: 1500,
+                  repeat: -1,
+                  yoyo: true,
+                })
+            },
+          })
+        } else {
+          scene.add.tween({
+            targets: [state.crosshair],
+            scale: { from: 1.1 * initialScale, to: 0.9 * initialScale },
+            ease: Easing.Cubic,
+            duration: 500,
+            repeat: 0,
+            yoyo: true,
+            onComplete: () => {
+              destroy()
+              dispatchEvent(events.LD_CROSSHAIR_REMOVED, {
+                target: getObserversByName('control-crosshair-creation'),
               })
-          },
-        })
+            },
+          })
+        }
       }),
       [events.LD_SPACEBAR_PULSATE_START]: (ev) => {
         createPulsateTween()
