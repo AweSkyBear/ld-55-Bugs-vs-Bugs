@@ -23,7 +23,7 @@
     "obs-disp": "^0.1.11",
     "phaser3-rex-plugins": "^1.1.71",
     "ramda": "^0.28.0",
-    "random": "^3.0.6",
+    "random": "^4.1.0",
     "rimraf": "^3.0.2",
     "throttle-debounce": "^5.0.0",
     "to-array-buffer": "^3.2.0",
