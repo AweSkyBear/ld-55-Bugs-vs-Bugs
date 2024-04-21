@@ -20,6 +20,7 @@ import { centerXText } from '~/common/text'
 import { mainCam } from '~/common/camera'
 import { ODHTMLEvents } from '~/core/createHTMLEvents'
 import { Global } from './global/global'
+import { defer } from '~/common/func'
 
 export const PULSATE_DURATION = 2500
 
@@ -72,7 +73,10 @@ export const controlPlayerSummoning = obsDispCreator(
         Global.earthHp -= Math.max(0, Global.selectedSummonCount)
         dispatchEvent(events.LD_EARTH_DECREASED_HP)
 
-        Global.selectedSummonCount = Math.min(Global.selectedSummonCount, Global.earthHp)
+        defer(
+          // reset it for next step
+          () => (Global.selectedSummonCount = Math.min(Global.selectedSummonCount, Global.earthHp))
+        )
 
         Global.totalBugsSummoned += Global.selectedSummonCount
 
@@ -101,12 +105,7 @@ export const controlPlayerSummoning = obsDispCreator(
       [ODHTMLEvents.HTML_EV_ANY]: ({ payload }) => {
         const { type, wrappedEventArgs } = payload
         // PRESSING SPACE
-        if (
-          state.readyToShoot &&
-          type === 'keydown' &&
-          wrappedEventArgs[0].key === ' ' &&
-          Global.selectedSummonCount > 0
-        ) {
+        if (state.readyToShoot && type === 'keydown' && wrappedEventArgs[0].key === ' ') {
           dispatchEvent(events.LD_PLAYER_SUMMON)
 
           state.readyToShoot = false

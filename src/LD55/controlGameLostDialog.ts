@@ -69,7 +69,7 @@ Press R to restart the game
       },
       [ODHTMLEvents.HTML_EV_ANY]: ({ payload }) => {
         const { type, wrappedEventArgs } = payload
-        // PRESSING SPACE
+
         if (state.gameLost && type === 'keydown' && wrappedEventArgs[0].key === 'r') {
           console.log('restart!')
 
