@@ -1,7 +1,7 @@
 import { dispatchEvent, obsDispCreator, obsDispEvents } from '../OD'
 import { events } from './events'
 import { createBug } from './createBug'
-import { basedOn } from '~/common/func'
+import { basedOn, defer, waitMs } from '~/common/func'
 import Image from 'phaser3-rex-plugins/plugins/gameobjects/mesh/perspective/image/Image'
 import ForegroundScene from '~/scenes/ForegroundScene'
 import { ObservableScenes } from '~/scenes/BaseObservableScene'
@@ -24,9 +24,11 @@ export const controlBottomActions = obsDispCreator(() => {
   const scene = ObservableScenes.game
 
   return {
-    [obsDispEvents.OBS_CREATE]: () => {
+    [obsDispEvents.OBS_CREATE]: async () => {
       //
       state.container = ObservableScenes.foreground.add.container()
+
+      await waitMs()
 
       state.container.add([
         ObservableScenes.foreground.add.image(0, 0, TEXTURES_MAP.BTN_BASE).setScale(0.5),

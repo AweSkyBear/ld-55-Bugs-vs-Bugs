@@ -20,9 +20,9 @@ export const events = constructEvents([
   /** For the total number of bugs to summon along all targets (when Space) */
   'LD_SUMMON_SET_COUNT',
   /** For when ending a summoning */
-  'LD_EARTH_DECREASE_HP',
+  'LD_EARTH_DECREASED_HP',
   /** For when unsummoning */
-  'LD_EARTH_INCREASE_HP',
+  'LD_EARTH_INCREASED_HP',
   /** When Earth loses HP */
   'LD_EARTH_HIT',
   'LD_ENEMY_BUG_KILLED',

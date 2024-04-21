@@ -31,8 +31,7 @@ export const createBottomLeftUI = obsDispCreator(
       hpSummonSlider: null as IHTMLElWrapper,
       //
       points: 0,
-      selectedHp: Global.summonCountDefault,
-      leftHp: 100,
+      // selectedHp: Global.selectedSummonCountDefault,
     }
 
     const refreshUiHTML = () => {
@@ -42,8 +41,10 @@ export const createBottomLeftUI = obsDispCreator(
 
       // events
       state.pointsEl?.setHTML(getPointsHTML(state.points))
-      state.hpSummonSlider?.setHTML(getSummonSlliderHTML(state.selectedHp, state.leftHp))
-      state.label?.setHTML(getSummonLabelHTML(state.selectedHp, state.leftHp))
+      state.hpSummonSlider?.setHTML(
+        getSummonSlliderHTML(Global.selectedSummonCount, Global.earthHp)
+      )
+      state.label?.setHTML(getSummonLabelHTML(Global.selectedSummonCount, Global.earthHp))
 
       getSliderEl().addEventListener('input', handleSliderChange)
       getSliderEl().addEventListener('change', handleSliderChangeEnd)
@@ -52,9 +53,12 @@ export const createBottomLeftUI = obsDispCreator(
 
     const handleSliderChange = (ev: any) => {
       const val = Number((ev.target as any).value)
-      state.selectedHp = val
+      Global.selectedSummonCount = val
       dispatchEvent(events.LD_SUMMON_SET_COUNT, { payload: { count: val } })
-      state.label.el.querySelector('label').innerHTML = getLabelText(state.selectedHp, state.leftHp)
+      state.label.el.querySelector('label').innerHTML = getLabelText(
+        Global.selectedSummonCount,
+        Global.earthHp
+      )
     }
     const handleSliderChangeEnd = (ev) => {
       // UNFOCUS
@@ -62,7 +66,7 @@ export const createBottomLeftUI = obsDispCreator(
     }
 
     const syncSliderMax = () => {
-      getSliderEl().max = `${state.leftHp}`
+      getSliderEl().max = `${Global.earthHp}`
     }
 
     const getUIEl = () => document.querySelector<HTMLElement>('#ui')
@@ -100,30 +104,12 @@ export const createBottomLeftUI = obsDispCreator(
         getUIEl().style.width = `${getGameCanvas().offsetWidth}px`
       },
       [events.LD_PLAYER_SUMMON_ENDED]: () => {
-        // Take the HP in terms of the last summon count
-        state.leftHp -= state.selectedHp
-        state.selectedHp = Math.min(state.selectedHp, state.leftHp)
-
-        dispatchEvent(events.LD_EARTH_DECREASE_HP, { payload: { hpDecrement: state.selectedHp } })
-
-        // sync
-        dispatchEvent(events.LD_SUMMON_SET_COUNT, { payload: { count: state.selectedHp } })
-
         refreshUiHTML()
       },
       [events.LD_EARTH_HIT]: (ev) => {
-        const { hp: earthHp } = ev.payload
-        state.leftHp = earthHp
-        state.selectedHp = Math.min(state.selectedHp, state.leftHp)
-
-        dispatchEvent(events.LD_SUMMON_SET_COUNT, { payload: { count: state.selectedHp } })
-
         refreshUiHTML()
       },
-      [events.LD_EARTH_INCREASE_HP]: (ev) => {
-        const { hpIncrement } = ev.payload
-        state.leftHp += hpIncrement
-
+      [events.LD_EARTH_INCREASED_HP]: (ev) => {
         refreshUiHTML()
       },
       [events.LD_POINTS_CHANGED]: (ev) => {

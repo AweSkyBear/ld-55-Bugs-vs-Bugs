@@ -29,7 +29,6 @@ export const controlPlayerSummoning = obsDispCreator(
       readyToShoot: false,
       spacebarImg: null as Image,
       tweenPulsate: null as Tween,
-      totalSummonCount: Global.summonCountDefault,
     }
 
     return {
@@ -37,7 +36,7 @@ export const controlPlayerSummoning = obsDispCreator(
         //
       },
       [events.LD_CROSSHAIR_COUNT_REACHED]: () => {
-        if (state.totalSummonCount <= 0) return
+        if (Global.selectedSummonCount <= 0) return
 
         state.readyToShoot = true
 
@@ -65,16 +64,17 @@ export const controlPlayerSummoning = obsDispCreator(
           },
         })
       },
-      // [events.LD_EARTH_INCREASE_HP]: (ev) => {
-      //   const { hpIncrement } = ev.payload
-      //   state.leftHp += hpIncrement
-      // },
       [events.LD_SUMMON_SET_COUNT]: (ev) => {
         const { count } = ev.payload
-        state.totalSummonCount = count
+        Global.selectedSummonCount = count
       },
       [events.LD_PLAYER_SUMMON_ENDED]: () => {
-        Global.totalBugsSummoned += state.totalSummonCount
+        Global.earthHp -= Math.max(0, Global.selectedSummonCount)
+        dispatchEvent(events.LD_EARTH_DECREASED_HP)
+
+        Global.selectedSummonCount = Math.min(Global.selectedSummonCount, Global.earthHp)
+
+        Global.totalBugsSummoned += Global.selectedSummonCount
 
         state.tweenPulsate?.remove()
         state.tweenPulsate = null
@@ -85,21 +85,18 @@ export const controlPlayerSummoning = obsDispCreator(
         // Initiate freidnly-bugs summonning for each crosshair
         const crosshairs = getObserversByName('crosshair')
         const crosshairNumber = crosshairs.length
-        const summonPerCrosshair = Math.ceil((state.totalSummonCount / crosshairNumber) as any)
+        const summonPerCrosshair = Math.ceil((Global.selectedSummonCount / crosshairNumber) as any)
 
-        let bugsLeftToSummon = state.totalSummonCount
+        let bugsLeftToSummon = Global.selectedSummonCount
         crosshairs.forEach((cross) => {
           if (bugsLeftToSummon <= 0) return
 
           cross.dispatchEvent(events.LD_SUMMON_BUGS_ON_ME, {
-            payload: { bugCount: summonPerCrosshair },
+            payload: { bugCount: Math.min(summonPerCrosshair, bugsLeftToSummon) },
             target: cross,
           })
           bugsLeftToSummon -= summonPerCrosshair
         })
-        // TODO:1 get the current number of SUMMON FOR !, create from this Crosshair summonFor / 3
-
-        // createFrienlyBug()
       },
       [ODHTMLEvents.HTML_EV_ANY]: ({ payload }) => {
         const { type, wrappedEventArgs } = payload
@@ -108,7 +105,7 @@ export const controlPlayerSummoning = obsDispCreator(
           state.readyToShoot &&
           type === 'keydown' &&
           wrappedEventArgs[0].key === ' ' &&
-          state.totalSummonCount > 0
+          Global.selectedSummonCount > 0
         ) {
           dispatchEvent(events.LD_PLAYER_SUMMON)
 

@@ -7,8 +7,12 @@ import { ObservableScenes } from '~/scenes/BaseObservableScene'
 export const Global = {
   earthPos: { x: 0, y: 0 },
   earthRadius: 100,
+  // core state
+  earthHp: 100,
+  selectedSummonCountDefault: 3,
+  selectedSummonCount: 3, // TODO: use everywhere ! ! !
+  //
   baseGameZoom: 1,
-  summonCountDefault: 3,
   // State flags
   summonEnded: false,
   isEvery30thFrame: false,
@@ -19,6 +23,7 @@ export const Global = {
   timerS: 0,
   timerMin: 0,
   totalKills: 0,
+  totalLostBugs: 0, // TODO:use
   totalBugsSummoned: 0,
   //
   prando: getGamePrando(),

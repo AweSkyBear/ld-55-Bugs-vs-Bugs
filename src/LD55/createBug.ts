@@ -28,7 +28,7 @@ import { TBugSize } from './interfaces/TBugSize'
 import { findClosestOf } from '~/common/distance'
 
 const START_HP = 100
-const SPEED = 0.5 // 0.1 - default
+const SPEED = 0.5 // 0.5 - default // ##TESTING  2.5 ::
 
 // import HueRotatePostFX from '../fx/pipelines/pipelines'
 export const createBug = obsDispCreator<{
@@ -41,7 +41,7 @@ export const createBug = obsDispCreator<{
     const state = {
       obs: null as IObserver,
       bug: null as MatterImage,
-      hp: START_HP,
+      hp: START_HP, // props.fraction === 'player' ? START_HP * 10 : START_HP, // ##TESTING  ::  START_HP
       // glowFx: null as Phaser.FX.Glow,
     }
 
@@ -136,7 +136,8 @@ export const createBug = obsDispCreator<{
           state.obs && removeObs(state.obs)
 
           // RESTORE HP FOR THE BUG REMOVED
-          dispatchEvent(events.LD_EARTH_INCREASE_HP, { payload: { hpIncrement: 1 } })
+          Global.earthHp += 1
+          dispatchEvent(events.LD_EARTH_INCREASED_HP)
         }
       },
       [events.LD_REPROD_ME]: (ev) => {

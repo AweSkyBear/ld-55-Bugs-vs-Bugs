@@ -31,7 +31,7 @@ export const controlCrosshairCreation = obsDispCreator(
   () => {
     const state = {
       maxCrosshairs: 3,
-      crosshairCount: 0,
+      crosshairCount: 0, // TODO: extract out to Global.currentCrosshairCount
       canSummon: true,
     }
 
@@ -40,7 +40,12 @@ export const controlCrosshairCreation = obsDispCreator(
         //
       },
       [inputEvents.GLOBAL_POINTER_DOWN]: async (ev) => {
-        if (Global.ignoreGlobalPointerDown || Global.isUnsummoning) return
+        if (
+          Global.ignoreGlobalPointerDown ||
+          Global.isUnsummoning ||
+          Global.selectedSummonCount <= 0
+        )
+          return
 
         const isPrimaryBtnClicked = ev.payload.pointer.button === 0
 

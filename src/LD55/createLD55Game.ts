@@ -16,6 +16,7 @@ import { createTimer } from './createTimer'
 import { controlGameLostDialog } from './controlGameLostDialog'
 import { exposeToWindow } from '~/common/debug'
 import { controlBottomActions } from './controlBottomActions'
+import { Global } from './global/global'
 
 // only initial entry point actions dispatched!
 export const createLD55Game = () => {
@@ -51,6 +52,10 @@ export const createLD55Game = () => {
 
         // Start game
         dispatchDeferredEvent(events.LD_GAME_START)
+      },
+      [events.LD_GAME_START]: () => {
+        // reset
+        Global.earthHp = 100
       },
       [obsDispEvents.OBS_REMOVE]: () => {
         // GlobalObservers.removeMultipleObs(observers)
