@@ -21,7 +21,7 @@
     "jsfxr": "^1.1.1",
     "object-path": "^0.11.8",
     "obs-disp": "^0.1.11",
-    "phaser3-rex-plugins": "^1.1.71",
+    "phaser3-rex-plugins": "^1.80.4",
     "ramda": "^0.28.0",
     "random": "^3.0.6",
     "rimraf": "^3.0.2",
